@@ -43,7 +43,7 @@ img {
 }
 
 button[type="button"] {
-  padding: 12px 20px;
+  padding: 10px 20px;
     max-width: 200px;
     min-width: 160px;
     min-height: 40px;
@@ -55,9 +55,9 @@ button[type="button"] {
     letter-spacing: 0.09em;
     text-transform: uppercase;
   
-    border: 1px solid black;
+    border: 2px solid black;
     border-radius: 25px;
-    background-color: transparent;
+    background-color: white;
 }
 
 input[type="text"] {
