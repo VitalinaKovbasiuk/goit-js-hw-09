@@ -16,3 +16,57 @@ img {
   display: block;
   max-width: 100%;
 }
+
+.field {
+  margin-right: 40px;
+  margin-top: 10px;
+}
+
+.timer {
+  display: flex;
+  
+}
+
+.value {
+  display: flex;
+  font-size: xx-large;
+}
+
+.label {
+  text-align: left;
+ 
+    align-items: center;
+    justify-content: center;
+
+    color: rgba(10, 2, 1, 0.6);
+    
+}
+
+button[type="button"] {
+  padding: 12px 20px;
+    max-width: 200px;
+    min-width: 160px;
+    min-height: 40px;
+  
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 1.33;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+  
+    border: 1px solid black;
+    border-radius: 25px;
+    background-color: transparent;
+}
+
+input[type="text"] {
+  border-color: #270b0c;
+  letter-spacing: 0.19em;
+  background-color: transparent;
+  width: 270px;
+  padding: 10px;
+  text-align: center;
+  border-radius: 25px;
+  margin-right: 5px;
+}
