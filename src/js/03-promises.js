@@ -29,44 +29,97 @@
 // Для відображення повідомлень користувачеві, замість console.log(), використовуй бібліотеку notiflix.
 
 
+
+
+
+
+// import { Notify } from 'notiflix/build/notiflix-notify-aio';
+
+// const formRef = document.querySelector(`.form`);
+// let delayRef = document.querySelector('[name=delay]');
+// let stapRef = document.querySelector('[name=step]');
+// let amountRef = document.querySelector('[name=amount]');
+
+// formRef.addEventListener(`submit`, onFormSubmit);
+
+// function onFormSubmit(event) {
+//   event.preventDefault();
+
+//   delayRef = Number(event.currentTarget.delay.value);
+//   stapRef = Number(event.currentTarget.step.value);
+//   amountRef = Number(event.currentTarget.amount.value);
+ 
+// for (let i =1; i <= amountRef; i++) {   
+//      createPromise(i, delayRef)   
+//    .then(({ position, delay }) => {    
+//        Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
+//      })
+
+//    .catch(({ position, delay }) => {   
+//        Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
+//      })
+//    delayRef += stapRef;
+// }
+// }
+
+// function createPromise(position, delay) {
+//   return new Promise((resolve, reject) =>
+//    {    setTimeout(() => {
+//   const shouldResolve = Math.random() > 0.3; 
+//       if (shouldResolve) {
+//         resolve({position, delay});
+//       } else {
+//         reject({position, delay});
+//       }
+//     });
+//   })
+// }
+
+
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
-const formRef = document.querySelector(`.form`);
-let delayRef = document.querySelector('[name=delay]');
-let stapRef = document.querySelector('[name=step]');
-let amountRef = document.querySelector('[name=amount]');
+const refs = {
+  form: document.querySelector('.form'),
+};
 
-formRef.addEventListener(`submit`, onFormSubmit);
+refs.form.addEventListener('submit', onFormSubmit);
 
 function onFormSubmit(event) {
   event.preventDefault();
+debugger;
+  const {
+    elements: { delay, step, amount },
+  } = event.target;
 
-  delayRef = Number(event.currentTarget.delay.value);
-  stapRef = Number(event.currentTarget.step.value);
-  amountRef = Number(event.currentTarget.amount.value);
- 
-for (let i =1; i <= amountRef; i++) {   
-     createPromise(i, delayRef)   
-   .then(({ position, delay }) => {    
-       Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
-     })
+  let promiseDelay = Number(delay.value);
 
-   .catch(({ position, delay }) => {   
-       Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
-     })
-   delayRef += stapRef;
-}
+  for (let i = 1; i <= amount.value; i += 1) {
+    createPromise(i, promiseDelay).then(onPromiseSuccess).catch(onPromiseError);
+    promiseDelay += Number(step.value);
+  }
+
+  event.target.reset();
 }
 
 function createPromise(position, delay) {
-  return new Promise((resolve, reject) =>
-   {    setTimeout(() => {
-  const shouldResolve = Math.random() > 0.3; 
+  return new Promise((resolve, reject) => {
+    const shouldResolve = Math.random() > 0.3;
+
+    setTimeout(() => {
       if (shouldResolve) {
-        resolve({position, delay});
+        resolve({ position, delay });
       } else {
-        reject({position, delay});
+        reject({ position, delay });
       }
-    });
-  })
+    }, delay);
+  });
 }
+
+function onPromiseSuccess({ position, delay }) {
+  Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`); 
+}
+
+function onPromiseError({ position, delay }) {
+  Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`); 
+}
+
